@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مطعم الأصالة - المطبخ المصري الأصيل</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #081f5c;
+            --secondary-color: #3b82f6;
+            --accent-color: #60a5fa;
+            --dark-color: #1e40af;
+            --light-color: #f0f9ff;
+            --text-color: #1e3a8a;
+            --shadow: 0 4px 6px rgba(30, 58, 138, 0.1);
+            --success-color: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            margin-right: 1rem;
+            margin-left: 15px;
+            font-size: 25px;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-right: 50px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(30, 58, 138, 0.8), rgba(30, 58, 138, 0.8)), url('https://images.unsplash.com/photo-1517244683847-7456b63c5969?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 6rem 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: var(--dark-color);
+        }
+
+        /* Menu Section */
+        .section-title {
+            text-align: center;
+            margin: 3rem 0 2rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--dark-color);
+            display: inline-block;
+            padding: 0 1rem;
+            background-color: #ffffff;
+        }
+
+        .section-title::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            z-index: -1;
+        }
+
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .category-btn {
+            background-color: white;
+            border: 1px solid var(--primary-color);
+            color: var(--dark-color);
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem 0.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-btn.active, .category-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .menu-item {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            border: 1px solid #e0f2fe;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .menu-item-image {
+            height: 200px;
+            background-color: #e0f2fe;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .menu-item-content {
+            padding: 1.5rem;
+        }
+
+        .menu-item-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-item-title h3 {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+        }
+
+        .menu-item-price {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .menu-item-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--dark-color);
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cart-content {
+            background-color: white;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #e0f2fe;
+            padding-bottom: 1rem;
+        }
+
+        .cart-header h2 {
+            color: var(--dark-color);
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-color);
+        }
+
+        .cart-items {
+            margin-bottom: 1.5rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e0f2fe;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-price {
+            color: var(--primary-color);
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-btn {
+            background-color: var(--light-color);
+            border: 1px solid var(--accent-color);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .quantity {
+            margin: 0 0.5rem;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .remove-item {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            margin-right: 1rem;
+        }
+
+        .cart-summary {
+            border-top: 1px solid #e0f2fe;
+            padding-top: 1rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .discount-section {
+            margin: 1rem 0;
+            padding: 1rem;
+            background-color: var(--light-color);
+            border-radius: 4px;
+        }
+
+        .discount-input {
+            display: flex;
+            margin-top: 0.5rem;
+        }
+
+        .discount-input input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid var(--accent-color);
+            border-radius: 4px 0 0 4px;
+        }
+
+        .discount-input button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        .discount-message {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .success {
+            color: var(--success-color);
+        }
+
+        .error {
+            color: #ef4444;
+        }
+
+        .total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            border-top: 1px solid #e0f2fe;
+            padding-top: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .checkout-btn {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .checkout-btn:hover {
+            background-color: #059669;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+
+        /* About Section */
+        .about {
+            background-color: var(--light-color);
+            padding: 4rem 0;
+            margin: 3rem 0;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            height: 400px;
+            background-color: #e0f2fe;
+            border-radius: 8px;
+            background-image: url('https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            border: 1px solid #e0f2fe;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 4rem 0;
+        }
+
+        .contact-content {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .contact-info, .contact-form {
+            flex: 1;
+        }
+
+        .contact-info h3, .contact-form h3 {
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .contact-detail i {
+            margin-left: 1rem;
+            color: var(--accent-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 4px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .contact-content {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 0;
+                text-align: center;
+            }
+            
+            nav ul li a {
+                display: block;
+                padding: 0.8rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">مطعم <span>الأصالة</span></div>
+                <div style="display: flex; align-items: center;">
+                    <div class="cart-icon" id="cartIcon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </div>
+                    <button class="mobile-menu-btn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">الرئيسية</a></li>
+                        <li><a href="#menu">قائمة الطعام</a></li>
+                        <li><a href="#about">عن المطعم</a></li>
+                        <li><a href="#features">المميزات</a></li>
+                        <li><a href="#contact">اتصل بنا</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>سلة المشتريات</h2>
+                <button class="close-cart" id="closeCart">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be added here dynamically -->
+                <div class="empty-cart" id="emptyCart">
+                    <i class="fas fa-shopping-cart" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                    <p>سلة المشتريات فارغة</p>
+                </div>
+            </div>
+            <div class="cart-summary" id="cartSummary" style="display: none;">
+                <div class="summary-row">
+                    <span>المجموع الفرعي:</span>
+                    <span id="subtotal">0 ج.م</span>
+                </div>
+                <div class="discount-section">
+                    <div class="summary-row">
+                        <span>الخصم:</span>
+                        <span id="discountAmount">0 ج.م</span>
+                    </div>
+                    <div class="discount-input">
+                        <input type="text" id="discountCode" placeholder="أدخل كود الخصم">
+                        <button id="applyDiscount">تطبيق</button>
+                    </div>
+                    <div class="discount-message" id="discountMessage"></div>
+                </div>
+                <div class="summary-row total">
+                    <span>المجموع الكلي:</span>
+                    <span id="total">0 ج.م</span>
+                </div>
+                <button class="checkout-btn">إتمام الطلب</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>تذوق نكهات مصر الأصيلة</h1>
+            <p>استمتع بأشهى الأطباق المصرية التقليدية في أجواء عربية أصيلة مع أفضل خدمة وضيافة</p>
+            <a href="#menu" class="btn">استعرض قائمة الطعام</a>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu">
+        <div class="container">
+            <div class="section-title">
+                <h2>قائمة الطعام</h2>
+            </div>
+            
+            <div class="menu-categories">
+                <button class="category-btn active" data-category="all">الكل</button>
+                <button class="category-btn" data-category="main">الأطباق الرئيسية</button>
+                <button class="category-btn" data-category="drinks">المشروبات</button>
+                <button class="category-btn" data-category="desserts">الحلويات</button>
+            </div>
+            
+            <div class="menu-items">
+                <!-- Main Dishes -->
+                <div class="menu-item" data-category="main">
+                    <div class="menu-item-image" style="background-image: url('images/mahshi.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3 id="mahshi">محشي</h3>
+                            <span class="menu-item-price">55 ج.م</span>
+                        </div>
+                        <p class="menu-item-description">محشي ورق عنب وأوراق الملوخية مع الأرز والطماطم والتوابل المصرية</p>
+                        <button class="add-to-cart" data-id="1" data-name="محشي" data-price="55">أضف إلى السلة</button>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="main">
+                    <div class="menu-item-image" style="background-image: url('images/fatah.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3 id="fatah">فتة بلحمة</h3>
+                            <span class="menu-item-price">75 ج.م</span>
+                        </div>
+                        <p class="menu-item-description">أرز وخبز محمص مع لحم ضأن مطهو ببطء وصلصة الطماطم</p>
+                        <button class="add-to-cart" data-id="2" data-name="فتة بلحمة" data-price="75">أضف إلى السلة</button>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="main">
+                    <div class="menu-item-image" style="background-image: url('images/bashameal.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>مكرونة بشاميل</h3>
+                            <span class="menu-item-price">65 ج.م</span>
+                        </div>
+                        <p class="menu-item-description">مكرونة بالباشاميل واللحمة المفرومة ومغطاة بالجبن</p>
+                        <button class="add-to-cart" data-id="3" data-name="مكرونة بشاميل" data-price="65">أضف إلى السلة</button>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="main">
+                    <div class="menu-item-image" style="background-image: url('images/melokhoia.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>ملوخية</h3>
+                            <span class="menu-item-price">60 ج.م</span>
+                        </div>
+                        <p class="menu-item-description">طبق الملوخية الأخضر المطهو مع الدجاج أو اللحم والأرز</p>
+                        <button class="add-to-cart" data-id="4" data-name="ملوخية" data-price="60">أضف إلى السلة</button>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="main">
+                    <div class="menu-item-image" style="background-image: url('images/waraenab.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>ورق عنب</h3>
+                            <span class="menu-item-price">50 ج.م</span>
+                        </div>
+                        <p class="menu-item-description">أوراق عنب طازجة محشية بالأرز واللحمة</p>
+                        <button class="add-to-cart" data-id="5" data-name="ورق عنب" data-price="50">أضف إلى السلة</button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="main">
+                    <div class="menu-item-image" style="background-image: url('images/rice.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>رز معمر</h3>
+                            <span class="menu-item-price">70 ج.م</span>
+                        </div>
+                        <p class="menu-item-description">أرز بالكبد واللحمة والمكسرات في صينية فرن</p>
+                        <button class="add-to-cart" data-id="6" data-name="رز معمر" data-price="70">أضف إلى السلة</button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="main">
+                    <div class="menu-item-image" style="background-image: url('images/Pitzaa.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>بيتزا</h3>
+                            <span class="menu-item-price">85 ج.م</span>
+                        </div>
+                        <p class="menu-item-description"> عجينة إيطالية مع الجبن والصلصة وإضافات متنوعة</p>
+                        <button class="add-to-cart" data-id="7" data-name="بيتزا" data-price="85">أضف إلى السلة</button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="main">
+                    <div class="menu-item-image" style="background-image: url('images/krip-potateos.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>كريب بطاطس</h3>
+                            <span class="menu-item-price">45 ج.م</span>
+                        </div>
+                        <p class="menu-item-description"> كريب مقرمش محشى بالبطاطس والجبن</p>
+                        <button class="add-to-cart" data-id="8" data-name="كريب بطاطس" data-price="45">أضف إلى السلة</button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="main">
+                    <div class="menu-item-image" style="background-image: url('images/krip-istraps.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3 id="strips">كريب استربس</h3>
+                            <span class="menu-item-price">65 ج.م</span>
+                        </div>
+                        <p class="menu-item-description"> كريب طري محشى بشرائح اللحم</p>
+                        <button class="add-to-cart" data-id="9" data-name="كريب استربس" data-price="65">أضف إلى السلة</button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="main">
+                    <div class="menu-item-image" style="background-image: url('images/burger_lahma.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>برجر لحمه</h3>
+                            <span class="menu-item-price">75 ج.م</span>
+                        </div>
+                        <p class="menu-item-description">برجر لحم بقري مشوي مع الخضار والصلصة</p>
+                        <button class="add-to-cart" data-id="10" data-name="برجر لحمه" data-price="75">أضف إلى السلة</button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="main">
+                    <div class="menu-item-image" style="background-image: url('images/shworma.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>سندوتشات شاورما</h3>
+                            <span class="menu-item-price">55 ج.م</span>
+                        </div>
+                        <p class="menu-item-description"> شاورما دجاج أو لحم في خبز طازج</p>
+                        <button class="add-to-cart" data-id="11" data-name="سندوتشات شاورما" data-price="55">أضف إلى السلة</button>
+                    </div>
+                </div>
+                
+                <!-- Drinks -->
+                <div class="menu-item" data-category="drinks">
+                    <div class="menu-item-image" style="background-image: url('images/smozi-mango.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>سموزي مانجا</h3>
+                            <span class="menu-item-price">35 ج.م</span>
+                        </div>
+                        <p class="menu-item-description"> مشروب مانجا طازج باللبن مثلج</p>
+                        <button class="add-to-cart" data-id="12" data-name="سموزي مانجا" data-price="35">أضف إلى السلة</button>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="drinks">
+                    <div class="menu-item-image" style="background-image: url('images/smozi-red.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>سموزي بطيخ</h3>
+                            <span class="menu-item-price">30 ج.م</span>
+                        </div>
+                        <p class="menu-item-description"> بطيخ مثلج منعش مع النعناع</p>
+                        <button class="add-to-cart" data-id="13" data-name="سموزي بطيخ" data-price="30">أضف إلى السلة</button>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="drinks">
+                    <div class="menu-item-image" style="background-image: url('images/moaz-milk.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3> عصير موز بالحليب</h3>
+                            <span class="menu-item-price">35 ج.م</span>
+                        </div>
+                        <p class="menu-item-description">موز طازج مع الحليب والآيس كريم</p>
+                        <button class="add-to-cart" data-id="14" data-name="عصير موز بالحليب" data-price="35">أضف إلى السلة</button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="drinks">
+                    <div class="menu-item-image" style="background-image: url('images/farawla-milk.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>عصير فراوله بالحليب</h3>
+                            <span class="menu-item-price">35 ج.م</span>
+                        </div>
+                        <p class="menu-item-description"> فراولة طازجة مع الحليب والمكسرات</p>
+                        <button class="add-to-cart" data-id="15" data-name="عصير فراوله بالحليب" data-price="35">أضف إلى السلة</button>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="drinks">
+                    <div class="menu-item-image" style="background-image: url('images/coffe.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>قهوة</h3>
+                            <span class="menu-item-price">25 ج.م</span>
+                        </div>
+                        <p class="menu-item-description">قهوة تركية أصلية محضرة بالطريقة التقليدية</p>
+                        <button class="add-to-cart" data-id="16" data-name="قهوة" data-price="25">أضف إلى السلة</button>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="drinks">
+                    <div class="menu-item-image" style="background-image: url('images/nescafe.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3> نسكافيه</h3>
+                            <span class="menu-item-price">30 ج.م</span>
+                        </div>
+                        <p class="menu-item-description"> نسكافيه سريع التحضير بالحليب</p>
+                        <button class="add-to-cart" data-id="17" data-name="نسكافيه" data-price="30">أضف إلى السلة</button>
+                    </div>
+                </div>
+
+                                
+                <div class="menu-item" data-category="drinks">
+                    <div class="menu-item-image" style="background-image: url('images/tea.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>شاي</h3>
+                            <span class="menu-item-price">15 ج.م</span>
+                        </div>
+                        <p class="menu-item-description"> شاي كركديه أو نعناع بالطريقة المصرية</p>
+                        <button class="add-to-cart" data-id="18" data-name="شاي" data-price="15">أضف إلى السلة</button>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="drinks">
+                    <div class="menu-item-image" style="background-image: url('images/yanson.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3> ينسون</h3>
+                            <span class="menu-item-price">15 ج.م</span>
+                        </div>
+                        <p class="menu-item-description"> مشروب اليانسون الدافئ المريح</p>
+                        <button class="add-to-cart" data-id="19" data-name="ينسون" data-price="15">أضف إلى السلة</button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="drinks">
+                    <div class="menu-item-image" style="background-image: url('images/ice-cofe.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3 id="ice-cofe">ايس كوفي</h3>
+                            <span class="menu-item-price">35 ج.م</span>
+                        </div>
+                        <p class="menu-item-description"> قهوة مثلجة بالحليب والآيس كريم</p>
+                        <button class="add-to-cart" data-id="20" data-name="ايس كوفي" data-price="35">أضف إلى السلة</button>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="drinks">
+                    <div class="menu-item-image" style="background-image: url('images/nena3na3.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>نعناع</h3>
+                            <span class="menu-item-price">15 ج.م</span>
+                        </div>
+                        <p class="menu-item-description"> شاي النعناع المنعش والطازج</p>
+                        <button class="add-to-cart" data-id="21" data-name="نعناع" data-price="15">أضف إلى السلة</button>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="drinks">
+                    <div class="menu-item-image" style="background-image: url('images/water.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>مياه معدنيه</h3>
+                            <span class="menu-item-price">10 ج.م</span>
+                        </div>
+                        <p class="menu-item-description"> مياه معدنية طبيعية مثلجة</p>
+                        <button class="add-to-cart" data-id="22" data-name="مياه معدنيه" data-price="10">أضف إلى السلة</button>
+                    </div>
+                </div>
+                
+                <!-- Desserts -->
+                <div class="menu-item" data-category="desserts">
+                    <div class="menu-item-image" style="background-image: url('images/molton-cake.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3> مولتن كيك</h3>
+                            <span class="menu-item-price">55 ج.م</span>
+                        </div>
+                        <p class="menu-item-description"> كيك متعدد الطبقات بالفواكه والكريمة</p>
+                        <button class="add-to-cart" data-id="23" data-name="مولتن كيك" data-price="55">أضف إلى السلة</button>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="desserts">
+                    <div class="menu-item-image" style="background-image: url('images/basbosa.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>بسبوسة</h3>
+                            <span class="menu-item-price">35 ج.م</span>
+                        </div>
+                        <p class="menu-item-description">حلوى السميد الشهية مع القطر والمكسرات</p>
+                        <button class="add-to-cart" data-id="24" data-name="بسبوسة" data-price="35">أضف إلى السلة</button>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="desserts">
+                    <div class="menu-item-image" style="background-image: url('images/konafa-choco.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3 id="konafa"> كنافه بالشكولاته</h3>
+                            <span class="menu-item-price">50 ج.م</span>
+                        </div>
+                        <p class="menu-item-description"> كنافة مقرمشة مع شوكولاتة ذائبة</p>
+                        <button class="add-to-cart" data-id="25" data-name="كنافه بالشكولاته" data-price="50">أضف إلى السلة</button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="desserts">
+                    <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>تورتة</h3>
+                            <span class="menu-item-price">80 ج.م</span>
+                        </div>
+                        <p class="menu-item-description">كيكة الشوكولاتة الغنية مع طبقة من الكريمة</p>
+                        <button class="add-to-cart" data-id="26" data-name="تورتة" data-price="80">أضف إلى السلة</button>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="desserts">
+                    <div class="menu-item-image" style="background-image: url('images/zinab.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>صوابع زينب</h3>
+                            <span class="menu-item-price">40 ج.م</span>
+                        </div>
+                        <p class="menu-item-description"> أصابع عجينة محشية بالقشطة والمكسرات</p>
+                        <button class="add-to-cart" data-id="27" data-name="صوابع زينب" data-price="40">أضف إلى السلة</button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="desserts">
+                    <div class="menu-item-image" style="background-image: url('images/om-ali.jpg')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>ام علي</h3>
+                            <span class="menu-item-price">45 ج.م</span>
+                        </div>
+                        <p class="menu-item-description"> خبز محمص مع الحليب والمكسرات والزبيب</p>
+                        <button class="add-to-cart" data-id="28" data-name="ام علي" data-price="45">أضف إلى السلة</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>عن مطعمنا</h2>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>تراث طهي مصري يمتد لأجيال</h3>
+                    <p>مطعم الأصالة يمثل تراث الطهي المصري الأصيل الذي توارثناه عبر الأجيال. نقدم أشهى الأطباق المصرية التقليدية محضرة بأيدٍ مصرية خبيرة، باستخدام أفضل المكونات الطازجة والتوابل المختارة بعناية.</p>
+                    <p>نفخر بتقديم تجربة طعام مصرية حقيقية، حيث ندمج بين الأصالة والجودة في كل طبق نقدمه. من المحشي والفتة إلى الملوخية والكشري، كل طبق يحكي قصة تذوق فريدة تنقل الزبائن إلى قلب الثقافة المصرية.</p>
+                    <a href="#contact" class="btn">احجز طاولتك الآن</a>
+                </div>
+                <div class="about-image"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>مميزاتنا</h2>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>أطباق تقليدية أصلية</h3>
+                    <p>نقدم أطباقاً مصرية تقليدية محضرة بالطريقة الأصلية، مع الحفاظ على النكهات الأصيلة.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>مكونات طازجة</h3>
+                    <p>نستخدم مكونات طازجة وعالية الجودة مختارة بعناية لضمان أفضل نكهة وجودة.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>توصيل سريع</h3>
+                    <p>خدمة توصيل سريعة وموثوقة لضمان وصول طعامك طازجاً وساخناً إلى باب منزلك.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-concierge-bell"></i>
+                    </div>
+                    <h3>خدمة متميزة</h3>
+                    <p>فريق خدمة مدرب لتقديم تجربة طعام استثنائية وضيافة مصرية أصيلة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>اتصل بنا</h2>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>معلومات الاتصال</h3>
+                    <div class="contact-detail">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>123 شارع التحرير، وسط البلد، القاهرة، مصر</p>
+                    </div>
+                    <div class="contact-detail">
+                        <i class="fas fa-phone"></i>
+                        <p>+20 123 456 7890</p>
+                    </div>
+                    <div class="contact-detail">
+                        <i class="fas fa-envelope"></i>
+                        <p>info@al-asala.com</p>
+                    </div>
+                    <div class="contact-detail">
+                        <i class="fas fa-clock"></i>
+                        <p>الأحد - الخميس: 10 ص - 12 م<br>الجمعة - السبت: 1 م - 1 ص</p>
+                    </div>
+                    
+                    <h3 style="margin-top: 2rem;">تابعنا على</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>أرسل لنا رسالة</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">الاسم الكامل</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">البريد الإلكتروني</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">رقم الهاتف</label>
+                            <input type="tel" id="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">الرسالة</label>
+                            <textarea id="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">إرسال الرسالة</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>مطعم الأصالة</h3>
+                    <p>وجهتك الأولى لتذوق الأطباق المصرية الأصيلة في أجواء عربية تقليدية. نقدم أشهى المأكولات المصرية محضرة بأيدي خبراء الطهي.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">الرئيسية</a></li>
+                        <li><a href="#menu">قائمة الطعام</a></li>
+                        <li><a href="#about">عن المطعم</a></li>
+                        <li><a href="#features">المميزات</a></li>
+                        <li><a href="#contact">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>الأطباق الشهية</h3>
+                    <ul class="footer-links">
+                        <li><a href="#mahshi">محشي</a></li>
+                        <li><a href="#fatah">فتة بلحمة</a></li>
+                        <li><a href="#strips">كريب استربس</a></li>
+                        <li><a href="#ice-cofe">ايس كوفي</a></li>
+                        <li><a href="#konafa">كنافة</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>اشترك في نشرتنا</h3>
+                    <p>اشترك لتصلك آخر العروض والأطباق الجديدة</p>
+                    <div class="form-group" style="margin-top: 1rem;">
+                        <input type="email" placeholder="بريدك الإلكتروني" style="width: 70%; display: inline-block;">
+                        <button class="btn" style="display: inline-block; width: 28%; margin-right: 2%;">اشتراك</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>جميع الحقوق محفوظة &copy; 2023 مطعم الأصالة</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Cart functionality
+        let cart = [];
+        let discountApplied = false;
+        let discountPercentage = 0;
+
+        // DOM Elements
+        const cartIcon = document.getElementById('cartIcon');
+        const cartModal = document.getElementById('cartModal');
+        const closeCart = document.getElementById('closeCart');
+        const cartItems = document.getElementById('cartItems');
+        const emptyCart = document.getElementById('emptyCart');
+        const cartSummary = document.getElementById('cartSummary');
+        const cartCount = document.querySelector('.cart-count');
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        const discountCodeInput = document.getElementById('discountCode');
+        const applyDiscountButton = document.getElementById('applyDiscount');
+        const discountMessage = document.getElementById('discountMessage');
+        const subtotalElement = document.getElementById('subtotal');
+        const discountAmountElement = document.getElementById('discountAmount');
+        const totalElement = document.getElementById('total');
+        const checkoutButton = document.querySelector('.checkout-btn');
+
+        // Discount codes
+        const discountCodes = {
+            'welcome': 10,
+            'save15': 15,
+            'hello': 20,
+            '30': 30,
+            '40': 40,
+            '50': 50,
+            '50': 50,
+        };
+
+        // Event Listeners
+        cartIcon.addEventListener('click', openCart);
+        closeCart.addEventListener('click', closeCartModal);
+        applyDiscountButton.addEventListener('click', applyDiscount);
+        checkoutButton.addEventListener('click', checkout);
+
+        // Add to cart functionality
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const id = button.getAttribute('data-id');
+                const name = button.getAttribute('data-name');
+                const price = parseInt(button.getAttribute('data-price'));
+                
+                addToCart(id, name, price);
+            });
+        });
+
+        // Functions
+        function openCart() {
+            cartModal.style.display = 'flex';
+            updateCartDisplay();
+        }
+
+        function closeCartModal() {
+            cartModal.style.display = 'none';
+        }
+
+        function addToCart(id, name, price) {
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id,
+                    name,
+                    price,
+                    quantity: 1
+                });
+            }
+            
+            updateCartCount();
+            updateCartDisplay();
+            
+            // Show success message
+            showNotification(`${name} تمت إضافته إلى السلة`);
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartCount();
+            updateCartDisplay();
+        }
+
+        function updateQuantity(id, change) {
+            const item = cart.find(item => item.id === id);
+            
+            if (item) {
+                item.quantity += change;
+                
+                if (item.quantity <= 0) {
+                    removeFromCart(id);
+                } else {
+                    updateCartCount();
+                    updateCartDisplay();
+                }
+            }
+        }
+
+        function updateCartCount() {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+        }
+
+        function updateCartDisplay() {
+            // Clear cart items
+            cartItems.innerHTML = '';
+            
+            if (cart.length === 0) {
+                emptyCart.style.display = 'block';
+                cartSummary.style.display = 'none';
+                return;
+            }
+            
+            emptyCart.style.display = 'none';
+            cartSummary.style.display = 'block';
+            
+            // Add cart items
+            cart.forEach(item => {
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.innerHTML = `
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">${item.price} ج.م</div>
+                    </div>
+                    <div class="cart-item-controls">
+                        <button class="remove-item" onclick="removeFromCart('${item.id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">-</button>
+                        <span class="quantity">${item.quantity}</span>
+                        <button class="quantity-btn" onclick="updateQuantity('${item.id}', 1)">+</button>
+                    </div>
+                `;
+                cartItems.appendChild(cartItemElement);
+            });
+            
+            updateCartTotal();
+        }
+
+        function updateCartTotal() {
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const discountAmount = discountApplied ? Math.round(subtotal * (discountPercentage / 100)) : 0;
+            const total = subtotal - discountAmount;
+            
+            subtotalElement.textContent = `${subtotal} ج.م`;
+            discountAmountElement.textContent = `${discountAmount} ج.م`;
+            totalElement.textContent = `${total} ج.م`;
+        }
+
+        function applyDiscount() {
+            const code = discountCodeInput.value.trim().toUpperCase();
+            
+            if (discountCodes[code]) {
+                discountApplied = true;
+                discountPercentage = discountCodes[code];
+                discountMessage.textContent = `تم تطبيق خصم ${discountPercentage}% بنجاح!`;
+                discountMessage.className = 'discount-message success';
+                updateCartTotal();
+             } else {
+                discountApplied = false;
+                discountPercentage = 0;
+                discountMessage.textContent = 'كود الخصم غير صحيح';
+                discountMessage.className = 'discount-message error';
+                updateCartTotal();
+            }
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('السلة فارغة. أضف بعض العناصر قبل إتمام الطلب.');
+                return;
+            }
+            
+            const total = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const discountAmount = discountApplied ? Math.round(total * (discountPercentage / 100)) : 0;
+            const finalTotal = total - discountAmount;
+            
+            alert(`شكراً لطلبك! المجموع الكلي: ${finalTotal} ج.م\nسيتم توصيل طلبك خلال 30-45 دقيقة.`);
+            
+            // Reset cart
+            cart = [];
+            discountApplied = false;
+            discountPercentage = 0;
+            discountCodeInput.value = '';
+            discountMessage.textContent = '';
+            updateCartCount();
+            updateCartDisplay();
+            closeCartModal();
+        }
+
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background-color: var(--success-color);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 4px;
+                box-shadow: var(--shadow);
+                z-index: 1000;
+                transition: transform 0.3s, opacity 0.3s;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+                notification.style.opacity = '1';
+            }, 10);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('show');
+        });
+
+        // Menu Category Filter
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const menuItems = document.querySelectorAll('.menu-item');
+
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const category = button.getAttribute('data-category');
+                
+                menuItems.forEach(item => {
+                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('شكراً لتواصلك معنا! سنرد عليك في أقرب وقت ممكن.');
+            this.reset();
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.querySelector('nav ul').classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
